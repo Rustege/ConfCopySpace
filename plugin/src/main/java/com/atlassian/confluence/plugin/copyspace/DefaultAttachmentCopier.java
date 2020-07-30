@@ -46,7 +46,8 @@ public class DefaultAttachmentCopier implements AttachmentCopier {
             try {
                 attachmentManager.saveAttachment(attachmentCopy, null, data);
                 for (Label label : attachment.getLabels()) {
-                    labelManager.addLabel((Labelable) attachmentCopy, label);
+           
+					labelManager.addLabel(attachmentCopy, label);
                 }
 
                 if (options.isKeepMetaData())
