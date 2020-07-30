@@ -1,0 +1,79 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+
+    <!-- The plugin info block allows you to provide more information about your plugin -->
+    <plugin-info>
+        <description>${pom.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    </plugin-info>
+
+    <component key="${atlassian.plugin.key}.lookAndFeelCopier"
+        name="Look And Feel Copier"
+        alias="lookAndFeelCopier"
+        class="com.atlassian.confluence.plugin.copyspace.DefaultLookAndFeelCopier"/>
+
+    <component key="${atlassian.plugin.key}.decoratorCopier"
+        name="Custom Layout Copier"
+        alias="decoratorCopier"
+        class="com.atlassian.confluence.plugin.copyspace.DefaultDecoratorCopier"/>
+
+    <component key="${atlassian.plugin.key}.attachmentCopier"
+        name="Attachment Copier"
+        alias="attachmentCopier"
+        class="com.atlassian.confluence.plugin.copyspace.DefaultAttachmentCopier"/>
+
+    <component key="${atlassian.plugin.key}.logoCopier"
+        name="Logo Copier"
+        alias="logoCopier"
+        class="com.atlassian.confluence.plugin.copyspace.AttachmentBasedLogoCopier"/>
+
+     <component key="${atlassian.plugin.key}.labelCopier"
+        name="Label Copier"
+        alias="labelCopier"
+        class="com.atlassian.confluence.plugin.copyspace.DefaultLabelCopier"/>
+
+    <component key="${atlassian.plugin.key}.copySpaceManager"
+        name="Copy Space Manager"
+        alias="copySpaceManager"
+        class="com.atlassian.confluence.plugin.copyspace.DefaultCopySpaceManager"
+        interface="com.atlassian.confluence.plugin.copyspace.CopySpaceManager"
+        public="true"/>
+
+    <web-item key="${atlassian.plugin.key}.copyspacelink" name="Copy Space Link" section="system.space.admin/spaceops" weight="40">
+        <label key="Copy Space" />
+        <link>/spaces/copyspaceoptions.action?key=$helper.space.key</link>
+        <icon height="16" width="16">
+            <link>/images/icons/add_space_16.gif</link>
+        </icon>
+        <condition class="com.atlassian.confluence.plugin.copyspace.CopySpaceCondition"/>
+    </web-item>
+
+    <web-item key="${atlassian.plugin.key}.visit.copier.link" name="Visit Copied Space Link" section="system.space.admin/spaceops" weight="40">
+        <label key="Visit Original Space" />
+        <link>/spaces/gotocreatorbycopyspace.action?key=$helper.space.key</link>
+        <icon height="16" width="16">
+            <link>/images/icons/home_faded_16.gif</link>
+        </icon>
+        <condition class="com.atlassian.confluence.plugin.copyspace.SpaceIsCopiedCondition"/>
+    </web-item>
+
+    <xwork key="${atlassian.plugin.key}.actions" name="Copy Space Actions">
+        <package name="copyspace" extends="default" namespace="/spaces">
+            <default-interceptor-ref name="validatingStack" />
+            <action name="copyspaceoptions" class="com.atlassian.confluence.plugin.copyspace.actions.CopySpaceOptionsAction">
+                <result name="success" type="velocity">/templates/extra/copyspace/copyspaceoptions.vm</result>
+            </action>
+            <action name="docopyspace" class="com.atlassian.confluence.plugin.copyspace.actions.DoCopySpaceAction">
+                <result name="input" type="velocity">/templates/extra/copyspace/copyspaceoptions.vm</result>
+                <result name="error" type="velocity">/templates/extra/copyspace/copyspaceerrors.vm</result>                
+                <result name="success" type="redirect">/display/${newKey}</result>
+                <result name="cancel" type="redirect">spaceadmin.action?key=${key}</result>
+            </action>
+            <action name="gotocreatorbycopyspace" class="com.atlassian.confluence.plugin.copyspace.actions.GoToCreatorByCopySpace">
+                <result name="success" type="redirect">/display/${copierKey}</result>
+                <!--<result name="error" type="velocity">/templates/extra/copyspace/spaceisgone.vm</result>-->
+            </action>
+        </package>
+    </xwork>
+    <resource name="i18n" type="i18n" location="i18n/copyspace"/>
+</atlassian-plugin>

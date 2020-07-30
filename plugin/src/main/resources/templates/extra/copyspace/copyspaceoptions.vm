@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>$i18n.getText("copyspace.title")</title>
+    </head>
+    <body>
+        #applyDecorator("root")
+            #decoratorParam("helper" $i18n.helper)
+            #decoratorParam("context" "space-administration")
+            #decoratorParam("mode" "view-space-administration")
+        #applyDecorator ("root")
+            #decoratorParam ("context" "spaceadminpanel")
+            #decoratorParam ("selection" "copyspace")
+            #decoratorParam ("title" "Copy Space")
+            #decoratorParam ("selectedTab" "admin")
+            #decoratorParam("helper" $i18n.helper)
+        <form class="aui edit-space-details" name="editspace" method="POST" action="docopyspace.action?key=$generalUtil.urlEncode($space.key)">
+            <h2 class="editor-title">$i18n.getText("copyspace.title")</h2>
+            <p class="stepdesc">$i18n.getText("copyspace.action.description")</p>
+            #if( !$remoteUser )
+                #parse ("/includes/alert-anonymous.vm")
+            #end
+            <div class="field-group">
+                <label for="name">$i18n.getText("space-name"):</label>
+                <input id="newName" class="text" type="text" value="" name="newName"></input>
+            </div>
+            <div class="field-group">
+                <label for="key">$i18n.getText("space-key"):</label>
+                <input id="newKey" class="text" type="text" value="" name="newKey"></input>
+            </div>
+            <div class="field-group">
+                <label for="description">$i18n.getText("copyspace.use.existing.authors.and.dates.label"):</label>
+                <input id="keepMetaData" type="checkbox" value="true" name="keepMetaData">
+            </div>
+            <div class="field-group">
+                <label for="description">$i18n.getText("copyspace.comments.label"):</label>
+                <input id="copyComments" type="checkbox" checked="checked" value="true" name="copyComments">
+            </div>
+            <div class="field-group">
+                <label for="description">$i18n.getText("copyspace.attachments.label"):</label>
+                <input id="copyAttachments" type="checkbox" checked="checked" value="true" name="copyAttachments">
+            </div>
+            <div class="field-group">
+                <label for="description">$i18n.getText("copyspace.personal.labels.label"):</label>
+                <input id="copyPersonalLabels" type="checkbox" value="true" name="copyPersonalLabels">
+            </div>
+            <div class="buttons-container">
+                <div class="buttons">
+                    <input class="button" type="submit" value="$i18n.getText("update.name")" name="confirm">
+                    <input class="button" type="submit" value="$i18n.getText("cancel.name")" name="cancel">
+                </div>
+            </div>
+        </form>
+        #end
+        #end
+    </body>
+</html>

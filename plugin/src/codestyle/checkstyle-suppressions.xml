@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<!DOCTYPE suppressions PUBLIC
+        "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+        "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+    <suppress id="atsince" files="SpaceIsCopiedCondition.java"/>
+    <suppress id="atsince" files="DefaultLookAndFeelCopier.java"/>
+    <suppress id="atsince" files="CopySpaceOptions.java"/>
+    <suppress id="atsince" files="CopySpaceException.java"/>
+    <suppress id="atsince" files="MetadataCopier.java"/>
+    <suppress id="atsince" files="DefaultCopySpaceManager.java"/>
+    <suppress id="atsince" files="LogoCopier.java"/>
+    <suppress id="atsince" files="DefaultAttachmentCopier.java"/>
+    <suppress id="atsince" files="LabelCopier.java"/>
+    <suppress id="atsince" files="AttachmentBasedLogoCopier.java"/>
+    <suppress id="atsince" files="DecoratorCopier.java"/>
+    <suppress id="atsince" files="GoToCreatorByCopySpace.java"/>
+    <suppress id="atsince" files="ListPageTranslationsAction.java"/>
+    <suppress id="atsince" files="DoCopySpaceAction.java"/>
+    <suppress id="atsince" files="CopySpaceOptionsAction.java"/>
+    <suppress id="atsince" files="CopySpaceCondition.java"/>
+    <suppress id="atsince" files="LookAndFeelCopier.java"/>
+    <suppress id="atsince" files="CopySpaceManager.java"/>
+    <suppress id="atsince" files="DefaultDecoratorCopier.java"/>
+    <suppress id="atsince" files="DefaultLabelCopier.java"/>
+    <suppress id="atsince" files="AttachmentCopier.java"/>
+</suppressions>

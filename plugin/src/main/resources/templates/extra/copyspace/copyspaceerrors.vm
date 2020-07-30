@@ -1,0 +1,34 @@
+<html>
+<head>
+    <title>$i18n.getText("copyspace.title")</title>
+</head>
+
+#applyDecorator("root")
+#decoratorParam("helper" $i18n.helper)
+#decoratorParam("context" "space-administration")
+#decoratorParam("mode" "view-space-administration")
+
+#applyDecorator ("root")
+#decoratorParam ("context" "spaceadminpanel")
+#decoratorParam ("selection" "copyspace")
+#decoratorParam ("title" "Copy Space")
+#decoratorParam ("selectedTab" "admin")
+#decoratorParam("helper" $i18n.helper)
+
+
+<div class="steptitle">
+    $i18n.getText("copyspace.title")
+</div>
+
+<div class="errorBox">
+<span class="errorMessage">$i18n.getText("copyspace.failure.description")</span><br>
+<br>
+    $i18n.getText("copyspace.failure.content", [ $failedContent.displayTitle ])
+    <a href="$req.contextPath$failedContent.urlPath">$i18n.getText("copyspace.error.link")</a><br>
+<br>
+$errorMessage
+</div>
+
+#end
+#end
+</html>

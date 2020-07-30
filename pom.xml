@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.atlassian.pom</groupId>
+        <artifactId>public-pom</artifactId>
+        <version>5.0.26</version>
+    </parent>
+
+    <groupId>com.atlassian.confluence.plugin</groupId>
+    <artifactId>confluence-copyspace-project</artifactId>
+    <version>4.1.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Confluence Copy Space Plugin Project</name>
+    <description>A Confluence plugin that makes a copy of a space including all the pages within it.</description>
+    <url>http://confluence.atlassian.com/display/CONFEXT/Copy+Space+Plugin</url>
+
+    <modules>
+        <module>plugin</module>
+        <module>integration-tests</module>
+    </modules>
+
+    <scm>
+        <connection>scm:git:git@bitbucket.org:atlassianlabs/confluence-copy-space-plugin.git</connection>
+        <developerConnection>scm:git:git@bitbucket.org:atlassianlabs/confluence-copy-space-plugin</developerConnection>
+        <url>https://bitbucket.org/atlassianlabs/confluence-copy-space-plugin</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <properties>
+        <atlassian.plugin.key>com.atlassian.confluence.plugin.copyspace</atlassian.plugin.key>
+
+        <confluence.version>6.6.15</confluence.version>
+        <confluence.data.version>${confluence.version}</confluence.data.version>
+
+        <amps8.version>8.0.2</amps8.version>
+        <webdriver.browser>firefox</webdriver.browser>
+        <containerId>tomcat8x</containerId>
+
+        <jvm.args.custom />
+        <jvm.args.xmx>1024m</jvm.args.xmx>
+        <jvm.args>-Xmx${jvm.args.xmx} ${jvm.args.custom}</jvm.args>
+
+        <mockito.version>2.28.2</mockito.version>
+        <byte-buddy.version>1.9.13</byte-buddy.version>
+
+        <!-- For the flaky test reporter profile. -->
+        <!-- override the versions of the listed plugins in amps -->
+        <version.override.set>maven-failsafe-plugin</version.override.set>
+        <!-- failsafe 2.20.1 or newer required for rerun support. Double check the version from the parent-pom -->
+        <surefire.version>2.22.2</surefire.version>
+        <download.maven.plugin.version>1.3.0</download.maven.plugin.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.atlassian.confluence</groupId>
+                <artifactId>confluence-plugins-platform-pom</artifactId>
+                <version>${confluence.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+			<dependency>
+            <groupId>com.atlassian.confluence</groupId>
+            <artifactId>confluence-webdriver-support</artifactId>
+            <version>${confluence.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.atlassian.confluence</groupId>
+                    <artifactId>confluence-not-shippable</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+            </dependency>
+
+            <!-- TODO remove version override when on Confluence 7.0.1 or higher -->
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>${byte-buddy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy-agent</artifactId>
+                <version>${byte-buddy.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy-dep</artifactId>
+                <version>${byte-buddy.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.atlassian.maven.plugins</groupId>
+                    <artifactId>confluence-maven-plugin</artifactId>
+                    <version>${amps8.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
